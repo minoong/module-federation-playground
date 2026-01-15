@@ -1,5 +1,7 @@
 # 모듈 페더레이션 플레이그라운드 (Module Federation Playground)
 
+[🚀 라이브 데모 보러가기](https://minoong.github.io/module-federation-playground/)
+
 > **각 서비스별 상세 문서 바로가기:**
 > [📚 Host App](./host-app/README.md) | [⚛️ Remote React](./remote-react/README.md) | [💚 Remote Vue](./remote-vue/README.md) | [🖼️ Remote Iframe](./remote-iframe-react/README.md)
 
@@ -7,9 +9,8 @@
 
 <br/>
 
-<div align="center">
-  <video src="./playground.mov" controls="controls" width="100%"></video>
-</div>
+![Image](https://github.com/user-attachments/assets/fbbf1283-4c49-463e-a8e2-4808a8040424)
+https://github.com/user-attachments/assets/4512189c-8ae1-4b41-b9c0-8b2e297c008b
 
 <br/>
 

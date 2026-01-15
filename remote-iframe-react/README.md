@@ -1,12 +1,13 @@
 # Remote Iframe Application
 
+[🚀 라이브 데모 보러가기](https://minoong.github.io/module-federation-playground/)
+
 `<iframe>`을 통해 통합되는 완전히 격리된 React 애플리케이션입니다.
 
 <br/>
 
-<div align="center">
-  <video src="../playground.mov" controls="controls" width="100%"></video>
-</div>
+![Image](https://github.com/user-attachments/assets/fbbf1283-4c49-463e-a8e2-4808a8040424)
+https://github.com/user-attachments/assets/4512189c-8ae1-4b41-b9c0-8b2e297c008b
 
 <br/>
 

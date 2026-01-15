@@ -5,6 +5,14 @@
 
 `@module-federation/vite`, React, Vue, 그리고 Iframe을 활용한 마이크로 프론트엔드(Micro-Frontends) 아키텍처를 종합적으로 보여주는 데모 프로젝트입니다.
 
+<br/>
+
+<div align="center">
+  <video src="./playground.mov" controls="controls" width="100%"></video>
+</div>
+
+<br/>
+
 ## 🏗 아키텍처 (Architecture)
 
 이 프로젝트는 **React, Vue, Iframe** 등 서로 다른 기술 스택을 가진 독립적인 애플리케이션들이 **Module Federation**을 통해 어떻게 하나의 통합된 사용자 경험을 제공하는지 보여주는 **실무형 마이크로 프론트엔드(Micro-Frontends) 예제**입니다.

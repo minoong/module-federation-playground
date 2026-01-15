@@ -2,6 +2,14 @@
 
 Module Federation을 통해 React Host에 통합되는 Vue 3 애플리케이션입니다.
 
+<br/>
+
+<div align="center">
+  <video src="../playground.mov" controls="controls" width="100%"></video>
+</div>
+
+<br/>
+
 ## 📦 노출 모듈 (Exposed Modules)
 
 | 모듈                 | 경로                 | 설명                                                       |

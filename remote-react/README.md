@@ -2,6 +2,14 @@
 
 Module Federation을 통해 노출(Expose)되는 React 기반 마이크로 프론트엔드입니다.
 
+<br/>
+
+<div align="center">
+  <video src="../playground.mov" controls="controls" width="100%"></video>
+</div>
+
+<br/>
+
 ## 📦 노출 모듈 (Exposed Modules)
 
 | 모듈                | 경로                | 설명                                             |

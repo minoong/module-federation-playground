@@ -2,6 +2,14 @@
 
 `<iframe>`을 통해 통합되는 완전히 격리된 React 애플리케이션입니다.
 
+<br/>
+
+<div align="center">
+  <video src="../playground.mov" controls="controls" width="100%"></video>
+</div>
+
+<br/>
+
 ## 🔒 격리 및 통신 (Isolation & Communication)
 
 표준 Module Federation 모듈과 달리, 이 앱은 별도의 문서 컨텍스트(Document Context)에서 실행됩니다. 이는 완전한 격리(CSS, JS 변수 등)를 보장하지만, 상태 공유를 위해서는 다른 접근 방식이 필요합니다.

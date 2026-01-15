@@ -2,6 +2,14 @@
 
 Micro-Frontends 아키텍처의 **메인 컨테이너** 역할을 하는 React 애플리케이션입니다.
 
+<br/>
+
+<div align="center">
+  <video src="../playground.mov" controls="controls" width="100%"></video>
+</div>
+
+<br/>
+
 ## 🎯 역할 및 책임 (Roles & Responsibilities)
 
 1.  **레이아웃 구성**: 사이드바, 푸터 등 공통 UI 레이아웃을 제공합니다.

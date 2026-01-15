@@ -1,73 +1,40 @@
-# React + TypeScript + Vite
+# Remote React Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Module Federation을 통해 노출(Expose)되는 React 기반 마이크로 프론트엔드입니다.
 
-Currently, two official plugins are available:
+## 📦 노출 모듈 (Exposed Modules)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| 모듈                | 경로                | 설명                                             |
+| ------------------- | ------------------- | ------------------------------------------------ |
+| **Header**          | `./Header`          | Tailwind로 스타일링된 상단 네비게이션 바입니다.  |
+| **InteractiveCard** | `./InteractiveCard` | GSAP 애니메이션이 적용된 리치 UI 컴포넌트입니다. |
 
-## React Compiler
+## 🛠 기술 스택
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **프레임워크**: React 19
+- **빌드 도구**: Vite, `@module-federation/vite`
+- **스타일링**: Tailwind CSS
+- **애니메이션**: GSAP (GreenSock)
 
-## Expanding the ESLint configuration
+## 🧩 타입 생성 (Type Generation)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+이 프로젝트는 `@module-federation/dts-plugin`을 사용하여 노출된 컴포넌트의 타입을 자동으로 생성합니다.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+```json
+// vite.config.ts
+federation({
+  name: 'remote_react',
+  exposes: {
+    './Header': './src/exposes/Header.tsx',
+    './InteractiveCard': './src/exposes/InteractiveCard.tsx',
   },
-])
+  // ...
+})
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 개발 환경 실행
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
+# http://localhost:5001 에서 실행됨
 ```

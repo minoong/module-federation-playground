@@ -1,73 +1,38 @@
-# React + TypeScript + Vite
+# Remote Iframe Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+`<iframe>`을 통해 통합되는 완전히 격리된 React 애플리케이션입니다.
 
-Currently, two official plugins are available:
+## 🔒 격리 및 통신 (Isolation & Communication)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+표준 Module Federation 모듈과 달리, 이 앱은 별도의 문서 컨텍스트(Document Context)에서 실행됩니다. 이는 완전한 격리(CSS, JS 변수 등)를 보장하지만, 상태 공유를 위해서는 다른 접근 방식이 필요합니다.
 
-## React Compiler
+### 상태 동기화 전략 (State Synchronization Strategy)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+우리는 **Window Messaging API (`postMessage`)**를 사용하여 Host App과 전역 카운트 상태를 동기화합니다.GitHub에서는 아래 시퀀스 다이어그램이 렌더링되어 보입니다.
 
-## Expanding the ESLint configuration
+```mermaid
+sequenceDiagram
+    participant Host as Host App
+    participant Iframe as Remote Iframe
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+    Host->>Iframe: 초기 상태 전송 (SYNC_GLOBAL_COUNT)
+    Note over Iframe: 로컬 상태 업데이트
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+    Iframe->>Host: 사용자 증가 버튼 클릭
+    Host->>Host: 전역 스토어 업데이트
+    Host->>Iframe: 새로운 상태 브로드캐스트
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 기술 스택
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **프레임워크**: React 19
+- **빌드 도구**: Vite
+- **스타일링**: Tailwind CSS
+- **애니메이션**: GSAP
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 개발 환경 실행
+
+```bash
+npm run dev
+# http://localhost:5003 에서 실행됨
 ```

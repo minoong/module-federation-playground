@@ -1,0 +1,34 @@
+declare module 'remote_react/Button' {
+  const Button: React.ComponentType;
+  export default Button;
+}
+
+declare module 'remote_react/Header' {
+  const Header: React.ComponentType;
+  export default Header;
+}
+
+declare module 'remote_vue/Button' {
+  import { DefineComponent } from 'vue';
+  const Button: DefineComponent;
+  export default Button;
+}
+
+declare module 'remote_vue/DashboardContent' {
+  import { DefineComponent } from 'vue';
+  const DashboardContent: DefineComponent;
+  export default DashboardContent;
+}
+
+declare module 'host_app/store' {
+  export interface State {
+    count: number;
+    [key: string]: unknown;
+  }
+  
+  export const store: {
+    get: () => State;
+    set: (newState: Partial<State>) => void;
+    subscribe: (listener: (state: State) => void) => () => void;
+  }
+}

@@ -1,0 +1,89 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      # Build Remote React
+      - name: Build Remote React
+        working-directory: ./remote-react
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
+
+      # Build Remote Vue
+      - name: Build Remote Vue
+        working-directory: ./remote-vue
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
+
+      # Build Remote Iframe
+      - name: Build Remote Iframe
+        working-directory: ./remote-iframe-react
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
+
+      # Build Host App
+      - name: Build Host App
+        working-directory: ./host-app
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
+
+      # Merge Builds
+      - name: Prepare Deployment Artifact
+        run: |
+          mkdir -p dist/remote-react
+          mkdir -p dist/remote-vue
+          mkdir -p dist/remote-iframe-react
+
+          # Copy Host App build to root
+          cp -r host-app/dist/* dist/
+
+          # Copy Remotes to subdirectories
+          cp -r remote-react/dist/* dist/remote-react/
+          cp -r remote-vue/dist/* dist/remote-vue/
+          cp -r remote-iframe-react/dist/* dist/remote-iframe-react/
+
+      # Fix Routing (SPA fallback)
+      - name: Fix GitHub Pages routing
+        run: |
+          cp dist/index.html dist/404.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
